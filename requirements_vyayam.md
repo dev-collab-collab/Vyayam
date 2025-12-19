@@ -444,6 +444,7 @@ export const config = {
 ## Assets
 - Place `vyayam_app_logo.png` in `public/` (copied from the prototype).
 - Use the updated login reference image `src/styles/Vyayam Login.png` for the Login page styling.
+- Login background uses the tiled pattern image `src/styles/Background_scaled down.png`; ensure it remains available at that path.
 
 ## How to run
 ```bash
