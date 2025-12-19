@@ -6,27 +6,41 @@ import { FormEvent, useState } from "react";
 export default function LoginPage() {
   const router = useRouter();
   const [email, setEmail] = useState("");
+  const [otp, setOtp] = useState("");
+  const [step, setStep] = useState<"email" | "otp">("email");
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
 
   const onSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setError(null);
+
+    if (step === "email") {
+      const normalized = email.trim().toLowerCase();
+      if (!normalized) {
+        setError("Enter your email to continue.");
+        return;
+      }
+      if (normalized !== "qa@qa.com") {
+        setError("Only qa@qa.com is enabled right now.");
+        return;
+      }
+      setStep("otp");
+      return;
+    }
+
     setLoading(true);
-    
-    // For now, this will send OTP request
-    // You'll need to update the API endpoint to handle OTP flow
     const res = await fetch("/api/auth/login", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ email }),
+      body: JSON.stringify({ email, otp }),
     });
     if (res.ok) {
       router.push("/");
       return;
     }
     const data = await res.json().catch(() => null);
-    setError(data?.message || "Failed to send OTP.");
+    setError(data?.message || "Invalid code, please try again.");
     setLoading(false);
   };
 
@@ -48,10 +62,25 @@ export default function LoginPage() {
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               required
+              disabled={step === "otp"}
             />
+            {step === "otp" && (
+              <input
+                id="otp"
+                className="auth-input"
+                type="text"
+                inputMode="numeric"
+                pattern="[0-9]*"
+                maxLength={6}
+                placeholder="Enter the OTP"
+                value={otp}
+                onChange={(e) => setOtp(e.target.value)}
+                required
+              />
+            )}
             {error && <p className="error-text">{error}</p>}
             <button type="submit" className="auth-button" disabled={loading}>
-              {loading ? "Sending..." : "Send OTP"}
+              {loading ? (step === "otp" ? "Verifying..." : "Sending...") : step === "otp" ? "Verify OTP" : "Send OTP"}
             </button>
           </form>
         </div>

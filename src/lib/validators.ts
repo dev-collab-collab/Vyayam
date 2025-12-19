@@ -7,7 +7,8 @@ export const registerSchema = z.object({
 
 export const loginSchema = z.object({
   email: z.string().min(1),
-  password: z.string().min(1),
+  password: z.string().min(1).optional(),
+  otp: z.string().length(6, "OTP must be 6 digits").optional(),
 });
 
 export const profileSchema = z.object({

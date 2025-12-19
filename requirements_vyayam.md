@@ -458,3 +458,5 @@ npm run dev
 - All data (profile, sessions, calorie logs) is ephemeral and stored in memory—restarts reset data.
 - Prisma has been removed; do not run `prisma generate` or expect a real database.
 - Prototype and login mock HTML files were removed; the Next app is the single source of truth.
+## Dangerous items to remove before live
+- QA bypass user: qa@qa.com with OTP 111111 is accepted in src/app/api/auth/login/route.ts (UI in src/app/auth/login/page.tsx); remove this before production.
