@@ -36,7 +36,7 @@ export default function LoginPage() {
       body: JSON.stringify({ email, otp }),
     });
     if (res.ok) {
-      router.push("/dashboard");
+      router.push("/");
       return;
     }
     const data = await res.json().catch(() => null);
@@ -48,7 +48,7 @@ export default function LoginPage() {
     <div className="auth-page">
       <div className="auth-stack">
         <div className="auth-logo">
-          <img src="/vyayam_app_logo.png" alt="Vyayam" />
+          <img src="/logos/vyayam_app_logo.png" alt="Vyayam" />
         </div>
         <div className="auth-card">
           <h1 className="auth-title">Log in or Sign up</h1>
