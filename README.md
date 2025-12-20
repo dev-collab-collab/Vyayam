@@ -1,65 +1,56 @@
-# Vyayam Coach (MVP)
+# Vyayam (QA/Test snapshot)
 
-A local-first Next.js fitness guidance app that helps users gain muscle or lose fat with a transparent calorie algorithm. Data is stored in SQLite via Prisma and authenticated with simple email/password + session cookies.
+Minimal Next.js App Router build with QA-only auth and a Figma-driven dashboard. Data is in-memory; no database or Prisma is used.
 
 ## Tech stack
-- Next.js (App Router, TypeScript)
-- Tailwind CSS
-- Prisma ORM with SQLite
-- Vitest for tests
+- Next.js 14 (App Router, TypeScript), React 18
+- Tailwind base available; custom styles live in `src/styles/globals.css` (global font set to sans-serif)
+- Zod for request validation
+- In-memory mock DB (`src/lib/db.ts`)
 
 ## Getting started
-1. **Install Node.js LTS** (18+ recommended).
-2. **Install dependencies**
+1. Install Node.js LTS (18+ recommended).
+2. Install dependencies:
    ```bash
    npm install
    ```
-3. **Set environment variables**
-   ```bash
-   cp .env.example .env
-   # Update SESSION_SECRET if desired
-   ```
-4. **Run Prisma migrations** (creates `dev.db`)
-   ```bash
-   npm run db:migrate
-   ```
-5. **Start the development server**
+3. Start dev server:
    ```bash
    npm run dev
    ```
-6. **Open the app** at [http://localhost:3000](http://localhost:3000)
+4. Open the app at http://localhost:3000/login
+5. QA login:
+   - Email: `qa@qa.com`
+   - OTP: `111111`
 
 ## NPM scripts
-- `npm run dev` â€“ start Next.js in dev mode
-- `npm run build` â€“ production build
-- `npm start` â€“ start the built app
-- `npm run db:migrate` â€“ run Prisma migrations
-- `npm run db:studio` â€“ open Prisma Studio
-- `npm test` â€“ run Vitest suite
+- `npm run dev` – start Next.js in dev mode
+- `npm run build` – production build
+- `npm start` – start the built app
+- `npm test` – placeholder
 
-## Key features
-- Email/password auth with secure httpOnly session cookie stored in SQLite
-- Profile management (age, weight, goal)
-- Calorie logging with last 14 days table and 7-day rolling average
-- Guidance engine: maintenance estimate, target calories, on/off track status, weekly recommendation, projection, and science notes
-- Clean Tailwind UI across landing, auth, dashboard, profile, and calorie pages
+## Key features (QA-only)
+- Login at `/login` with QA bypass `qa@qa.com` + `111111` (legacy `qa/qa` also accepted in API).
+- After login, land on `/dashboard` (Figma-spec goal selection screen with carousel).
+- Root `/` shows a simple “Coming Soon” placeholder.
+- No real persistence; all data is in-memory.
 
-## File structure
-- `src/app` â€“ App Router pages and API route handlers
-- `src/components` â€“ shared UI components
-- `src/lib` â€“ Prisma client, auth/session helpers, date utils, guidance algorithm, validation schemas
-- `src/tests` â€“ Vitest suites for guidance logic and guidance API
-- `prisma/schema.prisma` â€“ database schema (SQLite)
+## File structure (high level)
+- `src/app/login/page.tsx` – QA login UI + redirect to `/dashboard`
+- `src/app/dashboard/page.tsx` – Figma-spec dashboard (carousel + goal cards + add button + bottom nav)
+- `src/app/page.tsx` – Coming Soon placeholder
+- `src/app/api/auth/login/route.ts` – QA auth handler (`qa@qa.com` OTP + legacy `qa/qa`)
+- `src/styles/globals.css` – styling for login and dashboard
+- `public/logos/vyayam_rest_of_the_app.png` – dashboard logo
+- `public/Carousel/carousel-feed-1.png`, `public/Carousel/carousel-feed-2.png` – carousel images
+- `public/app_elements/lose_weight_image.png`, `public/app_elements/gain_muscle_image.png` – goal tile images
 
 ## Expected URLs
-- `/` â€“ landing page
-- `/auth/login` â€“ login
-- `/auth/register` â€“ register
-- `/dashboard` â€“ guidance dashboard
-- `/dashboard/profile` â€“ edit profile
-- `/dashboard/calories` â€“ log calories
+- `/login` – entry login
+- `/dashboard` – dashboard UI per Figma spec
+- `/` – Coming Soon placeholder
 
-## Notes
-- Sessions expire after 7 days; logout clears the session cookie.
-- Guidance algorithm counts missing days as zero calories in the 7-day average for transparency.
-- No external paid APIs are used; everything runs locally.
+## Notes / warnings
+- QA bypass (`qa@qa.com` + `111111`) must be removed before production.
+- Legacy `qa/qa` credential path remains in the API; remove before production.
+- No real auth/session hardening; in-memory data only.

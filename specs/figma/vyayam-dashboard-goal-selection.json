@@ -1,0 +1,415 @@
+{
+  "meta": {
+    "name": "Vyayam / Dashboard / Goal Selection",
+    "frame": { "width": 390, "height": 844 },
+    "platform": "mobile",
+    "notes": "Auto-layout vertical root. Use iOS-safe typography and spacing. Do not invent extra elements."
+  },
+  "styles": {
+    "colors": {
+      "bg": "#F9FBFD",
+      "surface": "#FFFFFF",
+      "primary": "#6E8BA5",
+      "textDark": "#1F2A33",
+      "textMuted": "#6B7C8F",
+      "border": "#E6ECF2",
+      "borderDashed": "#B8C7D6",
+      "inactiveIcon": "#9AAEC1",
+      "shadowColor": "rgba(0,0,0,0.06)",
+      "dotInactive": "#D8E1EA"
+    },
+    "typography": {
+      "h1": { "fontFamily": "Inter", "fontSize": 22, "fontWeight": 600, "lineHeight": 28 },
+      "body": { "fontFamily": "Inter", "fontSize": 16, "fontWeight": 500, "lineHeight": 22 },
+      "label": { "fontFamily": "Inter", "fontSize": 12, "fontWeight": 500, "lineHeight": 16 },
+      "bullet": { "fontFamily": "Inter", "fontSize": 13, "fontWeight": 400, "lineHeight": 18 }
+    },
+    "radii": {
+      "card": 16,
+      "goalCard": 18,
+      "image": 12,
+      "button": 14
+    },
+    "shadows": {
+      "card": { "x": 0, "y": 4, "blur": 12, "spread": 0, "color": "rgba(0,0,0,0.06)" }
+    },
+    "strokes": {
+      "icon": { "width": 2, "color": "#6E8BA5" },
+      "border": { "width": 1, "color": "#E6ECF2" },
+      "dashed": { "width": 2, "color": "#B8C7D6", "style": "dashed" }
+    }
+  },
+  "nodes": [
+    {
+      "id": "root",
+      "type": "FRAME",
+      "name": "Screen",
+      "size": { "w": 390, "h": 844 },
+      "fill": { "type": "SOLID", "colorRef": "colors.bg" },
+      "layout": {
+        "mode": "AUTO_LAYOUT",
+        "direction": "VERTICAL",
+        "padding": { "top": 12, "right": 16, "bottom": 20, "left": 16 },
+        "gap": 16,
+        "align": "CENTER"
+      },
+      "children": [
+        {
+          "id": "headerIcon",
+          "type": "VECTOR_PLACEHOLDER",
+          "name": "Header / LogoIcon",
+          "size": { "w": 72, "h": 72 },
+          "style": { "strokeRef": "strokes.icon", "fill": "NONE" },
+          "constraints": { "horizontal": "CENTER", "vertical": "TOP" },
+          "notes": "Meditating human holding dumbbells. Stroke only. No fill."
+        },
+        {
+          "id": "carousel",
+          "type": "FRAME",
+          "name": "Carousel / Container",
+          "size": { "w": 358, "h": 268 },
+          "layout": {
+            "mode": "AUTO_LAYOUT",
+            "direction": "VERTICAL",
+            "gap": 12,
+            "align": "CENTER"
+          },
+          "children": [
+            {
+              "id": "card1",
+              "type": "FRAME",
+              "name": "Carousel Card 1",
+              "size": { "w": 358, "h": 120 },
+              "fill": { "type": "SOLID", "colorRef": "colors.surface" },
+              "stroke": { "ref": "strokes.border" },
+              "radius": { "all": 16 },
+              "shadow": { "ref": "shadows.card" },
+              "layout": {
+                "mode": "AUTO_LAYOUT",
+                "direction": "HORIZONTAL",
+                "padding": { "top": 12, "right": 12, "bottom": 12, "left": 12 },
+                "gap": 12,
+                "align": "CENTER",
+                "justify": "SPACE_BETWEEN"
+              },
+              "children": [
+                {
+                  "id": "card1Image",
+                  "type": "IMAGE_PLACEHOLDER",
+                  "name": "Image",
+                  "size": { "w": 96, "h": 96 },
+                  "radius": { "all": 12 },
+                  "notes": "Food bowl photo. Slightly desaturated if possible."
+                },
+                {
+                  "id": "card1Text",
+                  "type": "TEXT",
+                  "name": "Quote",
+                  "text": "“Protein timing is key for\nmuscle growth”",
+                  "style": { "textRef": "typography.body", "colorRef": "colors.textDark" },
+                  "layout": { "grow": 1 },
+                  "constraints": { "horizontal": "SCALE" }
+                },
+                {
+                  "id": "card1Chevron",
+                  "type": "ICON",
+                  "name": "ChevronRight",
+                  "size": { "w": 20, "h": 20 },
+                  "style": { "fill": { "type": "SOLID", "colorRef": "colors.inactiveIcon" } }
+                }
+              ]
+            },
+            {
+              "id": "card2",
+              "type": "FRAME",
+              "name": "Carousel Card 2",
+              "size": { "w": 358, "h": 120 },
+              "fill": { "type": "SOLID", "colorRef": "colors.surface" },
+              "stroke": { "ref": "strokes.border" },
+              "radius": { "all": 16 },
+              "shadow": { "ref": "shadows.card" },
+              "layout": {
+                "mode": "AUTO_LAYOUT",
+                "direction": "HORIZONTAL",
+                "padding": { "top": 12, "right": 12, "bottom": 12, "left": 12 },
+                "gap": 12,
+                "align": "CENTER",
+                "justify": "SPACE_BETWEEN"
+              },
+              "children": [
+                {
+                  "id": "card2Image",
+                  "type": "IMAGE_PLACEHOLDER",
+                  "name": "Image",
+                  "size": { "w": 96, "h": 96 },
+                  "radius": { "all": 12 },
+                  "notes": "Gym man leaning on bench photo."
+                },
+                {
+                  "id": "card2Text",
+                  "type": "TEXT",
+                  "name": "Quote",
+                  "text": "“Muscle is built\nduring recovery”",
+                  "style": { "textRef": "typography.body", "colorRef": "colors.textDark" },
+                  "layout": { "grow": 1 }
+                }
+              ]
+            },
+            {
+              "id": "carouselDots",
+              "type": "FRAME",
+              "name": "Carousel / Dots",
+              "size": { "w": 80, "h": 12 },
+              "layout": {
+                "mode": "AUTO_LAYOUT",
+                "direction": "HORIZONTAL",
+                "gap": 8,
+                "align": "CENTER",
+                "justify": "CENTER"
+              },
+              "children": [
+                { "id": "dot1", "type": "ELLIPSE", "size": { "w": 6, "h": 6 }, "fill": { "type": "SOLID", "colorRef": "colors.dotInactive" } },
+                { "id": "dot2", "type": "ELLIPSE", "size": { "w": 6, "h": 6 }, "fill": { "type": "SOLID", "colorRef": "colors.dotInactive" } },
+                { "id": "dot3", "type": "ELLIPSE", "size": { "w": 6, "h": 6 }, "fill": { "type": "SOLID", "colorRef": "colors.primary" } },
+                { "id": "dot4", "type": "ELLIPSE", "size": { "w": 6, "h": 6 }, "fill": { "type": "SOLID", "colorRef": "colors.dotInactive" } }
+              ],
+              "notes": "Set active index as needed."
+            }
+          ]
+        },
+        {
+          "id": "title",
+          "type": "TEXT",
+          "name": "Select your goal",
+          "text": "Select your goal",
+          "style": { "textRef": "typography.h1", "colorRef": "colors.textDark" },
+          "constraints": { "horizontal": "CENTER" }
+        },
+        {
+          "id": "goalGrid",
+          "type": "FRAME",
+          "name": "Goal Cards / Grid",
+          "size": { "w": 358, "h": 180 },
+          "layout": {
+            "mode": "AUTO_LAYOUT",
+            "direction": "HORIZONTAL",
+            "gap": 12,
+            "align": "CENTER",
+            "justify": "CENTER"
+          },
+          "children": [
+            {
+              "id": "loseWeightCard",
+              "type": "FRAME",
+              "name": "Goal Card / Lose Weight",
+              "size": { "w": 173, "h": 180 },
+              "fill": { "type": "SOLID", "colorRef": "colors.surface" },
+              "stroke": { "ref": "strokes.border" },
+              "radius": { "all": 18 },
+              "layout": {
+                "mode": "AUTO_LAYOUT",
+                "direction": "VERTICAL",
+                "padding": { "top": 16, "right": 14, "bottom": 14, "left": 14 },
+                "gap": 10,
+                "align": "CENTER"
+              },
+              "children": [
+                {
+                  "id": "loseIcon",
+                  "type": "VECTOR_PLACEHOLDER",
+                  "name": "Icon / BellyOutline",
+                  "size": { "w": 72, "h": 48 },
+                  "style": { "strokeRef": "strokes.icon", "fill": "NONE" },
+                  "notes": "Neutral belly outline with subtle inward arrows. No extra marks below belly line."
+                },
+                {
+                  "id": "loseTitle",
+                  "type": "TEXT",
+                  "name": "Lose Weight",
+                  "text": "Lose Weight",
+                  "style": { "fontFamily": "Inter", "fontSize": 16, "fontWeight": 600, "lineHeight": 20, "colorRef": "colors.textDark" }
+                },
+                {
+                  "id": "loseDivider",
+                  "type": "LINE",
+                  "name": "Divider",
+                  "stroke": { "width": 1, "colorRef": "colors.border" },
+                  "size": { "w": 140, "h": 1 }
+                },
+                {
+                  "id": "loseBullets",
+                  "type": "FRAME",
+                  "name": "Bullets",
+                  "layout": { "mode": "AUTO_LAYOUT", "direction": "VERTICAL", "gap": 8, "align": "START" },
+                  "children": [
+                    {
+                      "id": "loseBullet1",
+                      "type": "TEXT",
+                      "text": "• Burn Fat",
+                      "style": { "textRef": "typography.bullet", "colorRef": "colors.textMuted" }
+                    },
+                    {
+                      "id": "loseBullet2",
+                      "type": "TEXT",
+                      "text": "• Calorie Deficit",
+                      "style": { "textRef": "typography.bullet", "colorRef": "colors.textMuted" }
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "id": "gainMuscleCard",
+              "type": "FRAME",
+              "name": "Goal Card / Gain Muscle",
+              "size": { "w": 173, "h": 180 },
+              "fill": { "type": "SOLID", "colorRef": "colors.surface" },
+              "stroke": { "ref": "strokes.border" },
+              "radius": { "all": 18 },
+              "layout": {
+                "mode": "AUTO_LAYOUT",
+                "direction": "VERTICAL",
+                "padding": { "top": 16, "right": 14, "bottom": 14, "left": 14 },
+                "gap": 10,
+                "align": "CENTER"
+              },
+              "children": [
+                {
+                  "id": "gainIcon",
+                  "type": "VECTOR_PLACEHOLDER",
+                  "name": "Icon / BicepOutline",
+                  "size": { "w": 72, "h": 48 },
+                  "style": { "strokeRef": "strokes.icon", "fill": "NONE" }
+                },
+                {
+                  "id": "gainTitle",
+                  "type": "TEXT",
+                  "name": "Gain Muscle",
+                  "text": "Gain Muscle",
+                  "style": { "fontFamily": "Inter", "fontSize": 16, "fontWeight": 600, "lineHeight": 20, "colorRef": "colors.textDark" }
+                },
+                {
+                  "id": "gainDivider",
+                  "type": "LINE",
+                  "name": "Divider",
+                  "stroke": { "width": 1, "colorRef": "colors.border" },
+                  "size": { "w": 140, "h": 1 }
+                },
+                {
+                  "id": "gainBullets",
+                  "type": "FRAME",
+                  "name": "Bullets",
+                  "layout": { "mode": "AUTO_LAYOUT", "direction": "VERTICAL", "gap": 8, "align": "START" },
+                  "children": [
+                    {
+                      "id": "gainBullet1",
+                      "type": "TEXT",
+                      "text": "• Build Strength",
+                      "style": { "textRef": "typography.bullet", "colorRef": "colors.textMuted" }
+                    },
+                    {
+                      "id": "gainBullet2",
+                      "type": "TEXT",
+                      "text": "• Muscle Gain",
+                      "style": { "textRef": "typography.bullet", "colorRef": "colors.textMuted" }
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "addGoal",
+          "type": "FRAME",
+          "name": "Button / Add Goal",
+          "size": { "w": 220, "h": 48 },
+          "fill": { "type": "SOLID", "color": "transparent" },
+          "stroke": { "ref": "strokes.dashed" },
+          "radius": { "all": 14 },
+          "layout": {
+            "mode": "AUTO_LAYOUT",
+            "direction": "HORIZONTAL",
+            "gap": 10,
+            "align": "CENTER",
+            "justify": "CENTER",
+            "padding": { "top": 10, "right": 16, "bottom": 10, "left": 16 }
+          },
+          "children": [
+            {
+              "id": "addIconCircle",
+              "type": "ELLIPSE",
+              "name": "IconBG",
+              "size": { "w": 28, "h": 28 },
+              "fill": { "type": "SOLID", "colorRef": "colors.border" },
+              "children": [
+                {
+                  "id": "addPlus",
+                  "type": "TEXT",
+                  "name": "Plus",
+                  "text": "+",
+                  "style": { "fontFamily": "Inter", "fontSize": 18, "fontWeight": 600, "lineHeight": 18, "colorRef": "colors.primary" }
+                }
+              ]
+            },
+            {
+              "id": "addGoalText",
+              "type": "TEXT",
+              "name": "Add Goal",
+              "text": "Add Goal",
+              "style": { "fontFamily": "Inter", "fontSize": 16, "fontWeight": 500, "lineHeight": 20, "colorRef": "colors.textDark" }
+            }
+          ]
+        },
+        {
+          "id": "bottomNav",
+          "type": "FRAME",
+          "name": "Bottom Nav",
+          "size": { "w": 358, "h": 72 },
+          "fill": { "type": "SOLID", "colorRef": "colors.surface" },
+          "stroke": { "width": 1, "colorRef": "colors.border", "position": "TOP" },
+          "layout": {
+            "mode": "AUTO_LAYOUT",
+            "direction": "HORIZONTAL",
+            "gap": 0,
+            "align": "CENTER",
+            "justify": "SPACE_BETWEEN",
+            "padding": { "top": 10, "right": 22, "bottom": 10, "left": 22 }
+          },
+          "children": [
+            {
+              "id": "tabDashboard",
+              "type": "FRAME",
+              "name": "Tab / Dashboard (Active)",
+              "layout": { "mode": "AUTO_LAYOUT", "direction": "VERTICAL", "gap": 6, "align": "CENTER" },
+              "children": [
+                { "id": "iconHome", "type": "ICON", "name": "Home", "size": { "w": 24, "h": 24 }, "style": { "fill": { "type": "SOLID", "colorRef": "colors.textDark" } } },
+                { "id": "labelDashboard", "type": "TEXT", "text": "Dashboard", "style": { "textRef": "typography.label", "colorRef": "colors.textDark" } }
+              ]
+            },
+            {
+              "id": "tabProgress",
+              "type": "FRAME",
+              "name": "Tab / Goal Progress (Inactive)",
+              "layout": { "mode": "AUTO_LAYOUT", "direction": "VERTICAL", "gap": 6, "align": "CENTER" },
+              "children": [
+                { "id": "iconBars", "type": "ICON", "name": "Bars", "size": { "w": 24, "h": 24 }, "style": { "fill": { "type": "SOLID", "colorRef": "colors.inactiveIcon" } } },
+                { "id": "labelProgress", "type": "TEXT", "text": "Goal Progress", "style": { "textRef": "typography.label", "colorRef": "colors.inactiveIcon" } }
+              ]
+            },
+            {
+              "id": "tabProfile",
+              "type": "FRAME",
+              "name": "Tab / Profile (Inactive)",
+              "layout": { "mode": "AUTO_LAYOUT", "direction": "VERTICAL", "gap": 6, "align": "CENTER" },
+              "children": [
+                { "id": "iconUser", "type": "ICON", "name": "User", "size": { "w": 24, "h": 24 }, "style": { "fill": { "type": "SOLID", "colorRef": "colors.inactiveIcon" } } },
+                { "id": "labelProfile", "type": "TEXT", "text": "Profile", "style": { "textRef": "typography.label", "colorRef": "colors.inactiveIcon" } }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

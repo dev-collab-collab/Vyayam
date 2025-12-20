@@ -1,4 +1,4 @@
-import { NextRequest, NextResponse } from "next/server";
+﻿import { NextRequest, NextResponse } from "next/server";
 
 const SESSION_COOKIE = "vyayam_session";
 
@@ -6,15 +6,19 @@ export function middleware(req: NextRequest) {
   const session = req.cookies.get(SESSION_COOKIE)?.value;
   const { pathname } = req.nextUrl;
 
-  if (!session && pathname.startsWith("/dashboard")) {
+  const requiresAuth = pathname === "/dashboard" || pathname.startsWith("/dashboard");
+  const isLogin = pathname === "/login" || pathname.startsWith("/auth");
+  const isRoot = pathname === "/";
+
+  if (!session && requiresAuth) {
     const url = req.nextUrl.clone();
-    url.pathname = "/auth/login";
+    url.pathname = "/login";
     return NextResponse.redirect(url);
   }
 
-  if (session && pathname.startsWith("/auth")) {
+  if (session && (isLogin || isRoot)) {
     const url = req.nextUrl.clone();
-    url.pathname = "/";
+    url.pathname = "/dashboard";
     return NextResponse.redirect(url);
   }
 
@@ -22,5 +26,5 @@ export function middleware(req: NextRequest) {
 }
 
 export const config = {
-  matcher: ["/dashboard/:path*", "/auth/:path*"],
+  matcher: ["/", "/login", "/auth/:path*", "/dashboard/:path*"],
 };
