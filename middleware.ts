@@ -1,4 +1,4 @@
-﻿import { NextRequest, NextResponse } from "next/server";
+﻿﻿import { NextRequest, NextResponse } from "next/server";
 
 const SESSION_COOKIE = "vyayam_session";
 
@@ -7,12 +7,12 @@ export function middleware(req: NextRequest) {
   const { pathname } = req.nextUrl;
 
   const requiresAuth = pathname === "/dashboard" || pathname.startsWith("/dashboard");
-  const isLogin = pathname === "/login" || pathname.startsWith("/auth");
+  const isLogin = pathname.startsWith("/auth");
   const isRoot = pathname === "/";
 
   if (!session && requiresAuth) {
     const url = req.nextUrl.clone();
-    url.pathname = "/login";
+    url.pathname = "/auth/login";
     return NextResponse.redirect(url);
   }
 
@@ -26,5 +26,5 @@ export function middleware(req: NextRequest) {
 }
 
 export const config = {
-  matcher: ["/", "/login", "/auth/:path*", "/dashboard/:path*"],
+  matcher: ["/", "/auth/:path*", "/dashboard/:path*"],
 };

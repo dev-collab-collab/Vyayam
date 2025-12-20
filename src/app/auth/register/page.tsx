@@ -2,7 +2,7 @@
 
 import { useRouter } from "next/navigation";
 import { useState } from "react";
-import FormField from "@/components/FormField";
+import FormField from "@/components/ui/FormField";
 
 export default function RegisterPage() {
   const router = useRouter();

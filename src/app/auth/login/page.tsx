@@ -1,4 +1,4 @@
-﻿"use client";
+﻿﻿"use client";
 
 import { useRouter } from "next/navigation";
 import { FormEvent, useState } from "react";
@@ -36,7 +36,7 @@ export default function LoginPage() {
       body: JSON.stringify({ email, otp }),
     });
     if (res.ok) {
-      router.push("/");
+      router.push("/dashboard");
       return;
     }
     const data = await res.json().catch(() => null);

@@ -2,7 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { prisma } from "@/lib/db";
 import { requireUser } from "@/lib/auth";
 import { computeGuidance } from "@/lib/guidance";
-import { formatYMD, getLastNDates, parseYMD } from "@/lib/date";
+import { formatYMD, getLastNDates, parseYMD } from "@/lib/utils/date";
 
 export async function GET(req: NextRequest) {
   const user = await requireUser(req);

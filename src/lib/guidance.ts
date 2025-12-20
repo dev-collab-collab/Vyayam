@@ -1,5 +1,5 @@
 import { GoalType } from "@prisma/client";
-import { getLastNDates } from "@/lib/date";
+import { getLastNDates } from "@/lib/utils/date";
 
 export interface ProfileData {
   age: number;

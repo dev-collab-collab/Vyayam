@@ -12,8 +12,8 @@ const getLastNDates = vi.fn(() => ["2024-01-01", "2024-01-02"]);
 
 vi.mock("@/lib/auth", () => ({ requireUser: () => requireUser() }));
 vi.mock("@/lib/db", () => ({ prisma: { profile: { findUnique: (...args: any[]) => profileFindUnique(...args) }, calorieLog: { findMany: (...args: any[]) => calorieFindMany(...args) } } }));
-vi.mock("@/lib/date", async () => {
-  const actual = await vi.importActual<any>("@/lib/date");
+vi.mock("@/lib/utils/date", async () => {
+  const actual = await vi.importActual<any>("@/lib/utils/date");
   return { ...actual, getLastNDates: () => getLastNDates() };
 });
 
@@ -40,3 +40,4 @@ describe("guidance API", () => {
     expect(res.status).toBe(401);
   });
 });
+

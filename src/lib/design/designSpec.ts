@@ -1,4 +1,4 @@
-// src/lib/designSpec.ts
+// src/lib/design/designSpec.ts
 
 export type ColorRef = string; // e.g. "colors.bg" or raw "#FFFFFF"
 
@@ -37,3 +37,4 @@ export type DesignSpec = {
   };
   nodes: DesignNode[];
 };
+
