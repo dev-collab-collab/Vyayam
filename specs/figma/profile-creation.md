@@ -20,26 +20,34 @@ profile exists for the authenticated user.
 ## Layout
 - Single-column layout
 - Centered content
-- Clean, minimal design
+- Clean, minimal design with no field labels (placeholders only)
 - Top logo: vyayam_rest_of_the_app.png
 - Title: "Create your profile"
-- Subtitle: "This helps us personalize your experience."
+- No subtitle (removed for cleaner design)
+- Sticky bottom CTA button that remains visible while scrolling
 
 ## Required Fields
-All required fields must be clearly marked with an asterisk (*).
+All fields are required. No asterisks shown (minimal design with self-explanatory placeholders).
 
-1. Nickname *
-2. Email *
-3. Age *
-4. Height *
-5. Weight *
-6. Gender *
+1. Nickname
+2. Email
+3. Age (15-65 years, iOS-style collapsible drum picker)
+4. Height (toggle between cm and ft/in)
+5. Weight
+6. Gender
 
 Gender is mandatory.
 
 ## Field Rules
-- Use appropriate input types (numeric for age, height, weight)
-- Show units inline (years, cm, kg)
+- No field labels - use self-explanatory placeholders only
+- Age: iOS-style collapsible drum picker (15-65 years)
+  - Collapsed: shows selected age or "Select your age" placeholder
+  - Tap to expand scrollable drum picker with gradient fade and center highlight
+  - Tap number or "Done" to collapse
+- Height: toggle between cm and ft/in with unit switcher
+- Weight: numeric input with kg unit
+- Gender: dropdown/select for MALE/FEMALE
+- Show units inline where applicable
 - One field per row
 - No goal-related fields
 
@@ -63,6 +71,8 @@ The UI must handle and display the following errors:
 
 ## Submit Behavior
 - Primary CTA: "Create profile"
+- Button styled with logo color (#6E8BA5)
+- Button positioned sticky at bottom (remains visible while scrolling)
 - Button disabled until form is valid
 - Show loading state on submit
 
