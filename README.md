@@ -2,6 +2,8 @@
 
 Minimal Next.js App Router build with QA-only auth and a Figma-driven dashboard. Data is in-memory; no database or Prisma is used.
 
+> Agent note: mandatory pre/post-condition gate lives in `AGENTS.md`.
+
 ## Tech stack
 - Next.js 14 (App Router, TypeScript), React 18
 - Tailwind base available; custom styles live in `src/styles/globals.css` (global font set to sans-serif)

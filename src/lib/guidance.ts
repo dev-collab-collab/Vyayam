@@ -1,5 +1,6 @@
-import { GoalType } from "@prisma/client";
 import { getLastNDates } from "@/lib/date";
+
+export type GoalType = "LOSE_FAT" | "GAIN_MUSCLE";
 
 export interface ProfileData {
   age: number;

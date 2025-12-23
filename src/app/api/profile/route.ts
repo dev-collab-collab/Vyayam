@@ -8,8 +8,17 @@ export async function GET(req: NextRequest) {
   if (!user) return NextResponse.json({ message: "Unauthorized" }, { status: 401 });
 
   const profile = await prisma.profile.findUnique({ where: { userId: user.id } });
-  if (!profile) return NextResponse.json({ message: "Profile not found" }, { status: 404 });
-  return NextResponse.json({ age: profile.age, weightKg: profile.weightKg, goalType: profile.goalType });
+  if (!profile) return NextResponse.json({ profileExists: false }, { status: 404 });
+  return NextResponse.json({ 
+    profileExists: true,
+    nickname: profile.nickname,
+    email: profile.email,
+    age: profile.age, 
+    heightCm: profile.heightCm,
+    weightKg: profile.weightKg, 
+    gender: profile.gender,
+    goalType: profile.goalType 
+  });
 }
 
 export async function PUT(req: NextRequest) {

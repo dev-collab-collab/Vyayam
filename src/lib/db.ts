@@ -2,7 +2,18 @@
 // Avoids @prisma/client initialization since we are not using a real database here.
 
 type QAUser = { id: string; email: string; passwordHash?: string; createdAt: Date };
-type QAProfile = { id: string; userId: string; age: number; weightKg: number; goalType: "LOSE_FAT" | "GAIN_MUSCLE"; updatedAt: Date };
+type QAProfile = { 
+  id: string; 
+  userId: string; 
+  nickname: string;
+  email: string;
+  age: number; 
+  heightCm: number;
+  weightKg: number; 
+  gender: "MALE" | "FEMALE";
+  goalType?: "LOSE_FAT" | "GAIN_MUSCLE"; 
+  updatedAt: Date;
+};
 type QASession = { id: string; userId: string; createdAt: Date; expiresAt: Date };
 type QALog = { id: string; userId: string; date: Date; calories: number; createdAt: Date; updatedAt: Date };
 
@@ -12,14 +23,7 @@ const qaUser: QAUser = {
   createdAt: new Date(),
 };
 
-let qaProfile: QAProfile = {
-  id: "qa-profile",
-  userId: "qa",
-  age: 30,
-  weightKg: 70,
-  goalType: "LOSE_FAT",
-  updatedAt: new Date(),
-};
+let qaProfile: QAProfile | null = null;
 
 const qaSessions: Record<string, QASession> = {};
 let qaLogs: QALog[] = [];
@@ -49,18 +53,22 @@ export const prisma = {
       if (where.userId !== "qa") return null;
       return qaProfile;
     },
-    create: async ({ data }: { data: Partial<QAProfile> }) => {
+    create: async ({ data }: { data: Partial<QAProfile> & { userId: string } }) => {
       qaProfile = {
         id: "qa-profile",
-        userId: "qa",
+        userId: data.userId,
+        nickname: data.nickname ?? "QA User",
+        email: data.email ?? "qa@example.com",
         age: data.age ?? 30,
+        heightCm: data.heightCm ?? 170,
         weightKg: data.weightKg ?? 70,
-        goalType: (data.goalType as QAProfile["goalType"]) ?? "LOSE_FAT",
+        gender: data.gender ?? "MALE",
+        goalType: data.goalType,
         updatedAt: new Date(),
       };
       return qaProfile;
     },
-    upsert: async ({ where, create, update }: { where: { userId: string }; create: Partial<QAProfile>; update: Partial<QAProfile> }) => {
+    upsert: async ({ where, create, update }: { where: { userId: string }; create: Partial<QAProfile> & { userId: string }; update: Partial<QAProfile> }) => {
       if (where.userId !== "qa") return null;
       if (qaProfile && qaProfile.userId === "qa") {
         qaProfile = { ...qaProfile, ...update, updatedAt: new Date() };
@@ -68,10 +76,14 @@ export const prisma = {
       }
       qaProfile = {
         id: "qa-profile",
-        userId: "qa",
+        userId: create.userId,
+        nickname: create.nickname ?? "QA User",
+        email: create.email ?? "qa@example.com",
         age: create.age ?? 30,
+        heightCm: create.heightCm ?? 170,
         weightKg: create.weightKg ?? 70,
-        goalType: (create.goalType as QAProfile["goalType"]) ?? "LOSE_FAT",
+        gender: create.gender ?? "MALE",
+        goalType: create.goalType,
         updatedAt: new Date(),
       };
       return qaProfile;
@@ -89,7 +101,7 @@ export const prisma = {
       qaSessions[id] = session;
       return session;
     },
-    findFirst: async ({ where }: { where: { id: string; expiresAt: { gt: Date } } }) => {
+    findFirst: async ({ where, include }: { where: { id: string; expiresAt: { gt: Date } }; include?: { user: boolean } }) => {
       const session = qaSessions[where.id];
       if (!session) return null;
       if (session.expiresAt <= where.expiresAt.gt) return null;

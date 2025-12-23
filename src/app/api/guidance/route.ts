@@ -10,6 +10,7 @@ export async function GET(req: NextRequest) {
 
   const profile = await prisma.profile.findUnique({ where: { userId: user.id } });
   if (!profile) return NextResponse.json({ message: "Profile missing" }, { status: 404 });
+  if (!profile.goalType) return NextResponse.json({ message: "Goal not set" }, { status: 400 });
 
   const last14Dates = getLastNDates(14);
   const startDate = parseYMD(last14Dates[0]);

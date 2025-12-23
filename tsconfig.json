@@ -23,9 +23,6 @@
         "src/*"
       ]
     },
-    "types": [
-      "vitest/globals"
-    ],
     "plugins": [
       {
         "name": "next"

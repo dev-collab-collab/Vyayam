@@ -12,9 +12,13 @@ export const loginSchema = z.object({
 });
 
 export const profileSchema = z.object({
-  age: z.number().int().min(16).max(90),
-  weightKg: z.number().min(30).max(300),
-  goalType: z.enum(["LOSE_FAT", "GAIN_MUSCLE"]),
+  nickname: z.string().min(1, "Nickname is required").max(50),
+  email: z.string().email(),
+  age: z.number().int().min(16, "Age must be at least 16").max(90, "Age must be 90 or less"),
+  heightCm: z.number().min(100, "Height must be at least 100 cm").max(250, "Height must be 250 cm or less"),
+  weightKg: z.number().min(30, "Weight must be at least 30 kg").max(300, "Weight must be 300 kg or less"),
+  gender: z.enum(["MALE", "FEMALE"], { errorMap: () => ({ message: "Gender is required" }) }),
+  goalType: z.enum(["LOSE_FAT", "GAIN_MUSCLE"]).optional(),
 });
 
 export const calorieLogSchema = z.object({
