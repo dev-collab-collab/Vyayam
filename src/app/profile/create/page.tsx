@@ -14,7 +14,6 @@ export default function ProfileCreatePage() {
   const [heightInches, setHeightInches] = useState("");
   const [heightUnit, setHeightUnit] = useState<"cm" | "ft">("cm");
   const [weight, setWeight] = useState("");
-  const [weightUnit, setWeightUnit] = useState<"kg" | "lbs">("kg");
   const [gender, setGender] = useState("");
   const [error, setError] = useState<string | null>(null);
   const [fieldErrors, setFieldErrors] = useState<Record<string, string>>({});
@@ -71,13 +70,9 @@ export default function ProfileCreatePage() {
       errors.height = "Height must be between 100 and 250 cm";
     }
 
-    const wtInput = parseFloat(weight);
-    const wtKg = weightUnit === "kg" ? wtInput : wtInput * 0.45359237;
-    if (!weight || isNaN(wtInput) || wtKg < 30 || wtKg > 300) {
-      errors.weight =
-        weightUnit === "kg"
-          ? "Weight must be between 30 and 300 kg"
-          : "Weight must be between 66 and 660 lbs";
+    const wtValue = parseFloat(weight);
+    if (!weight || wtValue < 30 || wtValue > 300) {
+      errors.weight = "Weight must be between 30 and 300 kg";
     }
 
     if (!gender) errors.gender = "Gender is required";
@@ -104,10 +99,7 @@ export default function ProfileCreatePage() {
           email: email.trim(),
           age: parseInt(age),
           heightCm: parseFloat(heightCm),
-          weightKg:
-            weightUnit === "kg"
-              ? parseFloat(weight)
-              : parseFloat(weight) * 0.45359237,
+          weightKg: parseFloat(weight),
           gender,
         }),
       });
@@ -349,63 +341,17 @@ export default function ProfileCreatePage() {
           </div>
 
           <div>
-            <div className="flex items-center gap-3 mb-3">
-              <div className="flex-1">
-                {weightUnit === "kg" ? (
-                  <input
-                    type="number"
-                    id="weightKg"
-                    name="weightKg"
-                    value={weight}
-                    onChange={(e) => setWeight(e.target.value)}
-                    placeholder="Weight (kg)"
-                    min="30"
-                    max="300"
-                    step="0.1"
-                    className="w-full rounded-xl border border-[#E6ECF2] px-4 py-3 text-base bg-white text-[#1F2A33] placeholder:text-[#9AAEC1] focus:border-[#6E8BA5] focus:outline-none focus:ring-2 focus:ring-[#6E8BA5]/20 transition-all"
-                    required
-                  />
-                ) : (
-                  <input
-                    type="number"
-                    id="weightLbs"
-                    name="weightLbs"
-                    value={weight}
-                    onChange={(e) => setWeight(e.target.value)}
-                    placeholder="Weight (lbs)"
-                    min="66"
-                    max="660"
-                    step="0.1"
-                    className="w-full rounded-xl border border-[#E6ECF2] px-4 py-3 text-base bg-white text-[#1F2A33] placeholder:text-[#9AAEC1] focus:border-[#6E8BA5] focus:outline-none focus:ring-2 focus:ring-[#6E8BA5]/20 transition-all"
-                    required
-                  />
-                )}
-              </div>
-
-              <div className="flex items-center gap-2 shrink-0">
-                <span className={`text-sm font-medium transition-colors ${weightUnit === "kg" ? "text-[#1F2A33]" : "text-[#9AAEC1]"}`}>
-                  kg
-                </span>
-                <button
-                  type="button"
-                  onClick={() => setWeightUnit(weightUnit === "kg" ? "lbs" : "kg")}
-                  className={`relative inline-flex h-7 w-12 items-center rounded-full transition-colors ${
-                    weightUnit === "lbs" ? "bg-[#6E8BA5]" : "bg-[#E6ECF2]"
-                  }`}
-                  role="switch"
-                  aria-checked={weightUnit === "lbs"}
-                >
-                  <span
-                    className={`inline-block h-5 w-5 transform rounded-full bg-white shadow-sm transition-transform ${
-                      weightUnit === "lbs" ? "translate-x-6" : "translate-x-1"
-                    }`}
-                  />
-                </button>
-                <span className={`text-sm font-medium transition-colors ${weightUnit === "lbs" ? "text-[#1F2A33]" : "text-[#9AAEC1]"}`}>
-                  lbs
-                </span>
-              </div>
-            </div>
+            <input
+              type="number"
+              value={weight}
+              onChange={(e) => setWeight(e.target.value)}
+              placeholder="Weight (kg)"
+              min="30"
+              max="300"
+              step="0.1"
+              className="w-full rounded-xl border border-[#E6ECF2] px-4 py-3 text-base bg-white text-[#1F2A33] placeholder:text-[#9AAEC1] focus:border-[#6E8BA5] focus:outline-none focus:ring-2 focus:ring-[#6E8BA5]/20 transition-all"
+              required
+            />
             {fieldErrors.weight && (
               <p className="mt-2 text-xs text-red-600 font-medium">{fieldErrors.weight}</p>
             )}
